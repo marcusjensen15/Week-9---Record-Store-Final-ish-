@@ -1,3 +1,5 @@
+require './lib/song'
+
 class Album
   attr_reader :id, :name, :year, :artist, :genre
 
@@ -15,7 +17,7 @@ class Album
   end
 
   def self.all
-    @@albums.values()
+    @@albums.values().sort_by { | val| val.name}
   end
 
 
@@ -23,18 +25,8 @@ class Album
     @@sold_albums.values()
   end
 
-
-  def self.sort
-    @@albums.values.sort_by { | val| val.name}
-
-  end
-
   def sold
-
-      @@sold_albums[self.id] = Album.new(self.name, self.id, self.year, self.genre, self.artist)
-
-
-  
+    @@sold_albums[self.id] = Album.new(self.name, self.id, self.year, self.genre, self.artist)
   end
 
   def save
@@ -45,31 +37,31 @@ class Album
     self.name == album_to_compare.name()
   end
 
+  def update(name)
+    @name = name
+  end
 
   def self.clear
     @@albums = {}
     @@total_rows = 0
   end
 
-  def update(name)
-    @name = name
-  end
-
   def self.find(id)
-   @@albums[id]
- end
-
- def self.search(name)
-   @@albums.each do |album|
-     if album[1].name == name
-      return album[1]
-     else
-       "There is no album with this name"
-     end
-   end
-end
-
-def delete
-  @@albums.delete(self.id)
+    @@albums[id]
   end
+
+  def self.search(type, search)
+    @@albums.values.select{ |album|
+      album.send(type) =~ /#{search}/i
+    }.sort{ |x,y| x.name <=> y.name }
+  end
+
+  def delete
+    @@albums.delete(self.id)
+  end
+
+  def get_songs
+    Song.find_by_album(self.id)
+  end
+
 end

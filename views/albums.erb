@@ -3,42 +3,40 @@
 <h3>Available Records</h3>
 
 <% if @albums.any? %>
-  <ul>
-    <% @albums.each do |album| %>
-      <li><%= album.name %></li>
-    <% end %>
-  </ul>
+<ul>
+  <% @albums.each do |album| %>
+  <li><a href="/albums/<%= album.id %>"><%= album.name%></a></li>
+  <% end %>
+</ul>
 <% else %>
-  <p>There are currently no records to display.</p>
+<p>There are currently no records to display.</p>
 <% end %>
 
-<form action="/albums" method="get">
+
+<form action="/albums/search" method="post">
   <div class="form-group">
-    <label for="name">Search by Album</label>
-    <input id="name" name="name" class="form-control" type="text">
+    <label for="type">Search by:</label>
+    <select name="type">
+      <option value="name">Name</option>
+      <option value="genre">Genre</option>
+      <option value="year">Year</option>
+    </select>
+    <label for="search">Search</label>
+    <input id="search" name="search" class="form-control" type="text">
   </div>
   <button type="submit" class="btn">Go!</button>
 </form>
 
 <a href="/albums/new">Add a new album</a>
-<% counter = 0 %>
-<% @sort.each do |album| %>
-    <li><a href="/albums/<%= @sort[counter].id %>"><%=@sort[counter].name%></a></li>
-    <% counter += 1 %>
-  <% end %>
-<h1>"Non Sorted"</h1>
-<% @albums.each do |album| %>
-    <li><a href="/albums/<%= album.id %>"><%= album.name %></a></li>
-  <% end %>
 
 <h3>Sold Albums</h3>
 
-  <% if @sold.any? %>
-    <ul>
-      <% @sold.each do |album| %>
-        <li><%= album.name %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>There are currently no records to display.</p>
+<% if @sold.any? %>
+<ul>
+  <% @sold.each do |album| %>
+  <li><%= album.name %></li>
   <% end %>
+</ul>
+<% else %>
+<p>There are currently no records to display.</p>
+<% end %>

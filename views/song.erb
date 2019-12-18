@@ -1,0 +1,7 @@
+<h4>Album Name: <%= @album.name %></h4>
+
+<h4>Song Name: <%= @song.name %></h4>
+
+<p><a href="/albums/<%= @album.id() %>/songs/<%= @song.id() %>/edit">Edit song</a></p>
+
+<a href="/albums/<%= @album.id %>/songs">Click here to go back to the album</a>

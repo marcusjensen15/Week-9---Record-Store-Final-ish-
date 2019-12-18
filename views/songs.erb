@@ -1,0 +1,15 @@
+<h1><%= @album.name %></h1>
+
+
+<% if @songs.any? %>
+<ul>
+  <% @songs.each do |song| %>
+  <li><a href="/albums/<%= @album.id %>/songs/<%= song.id %>"><%= song.name%></a></li>
+  <% end %>
+</ul>
+<% else %>
+<p>There are currently no songs to display.</p>
+<% end %>
+
+
+<a href="/albums/<%= @album.id %>/songs/new">Add a new Song</a>

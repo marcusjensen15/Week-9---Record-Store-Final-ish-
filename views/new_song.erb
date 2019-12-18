@@ -1,0 +1,9 @@
+<h1>Add a new song</h1>
+
+<form action="/albums/<%= @album.id %>/songs" method="post">
+  <div class="form-group">
+    <label for="song_name">Song name</label>
+    <input id="n" name="song_name" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Go!</button>
+</form>
